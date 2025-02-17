@@ -27,6 +27,11 @@ jobs:
       run: dotnet test --no-build --verbosity normal --configuration Release
 
     # Build the Typescript Code
+    - name: Install Ddependencies
+      working-directory: DotnetTemplate.Web/
+      run: npm install
+
+    # Build the Typescript Code
     - name: Build Typescript
       working-directory: DotnetTemplate.Web/
       run: npm run build
