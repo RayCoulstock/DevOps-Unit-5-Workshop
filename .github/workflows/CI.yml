@@ -2,8 +2,8 @@ name: Continuous Integration
 on: [push]                      # Will make the workflow run every time you push to any branch
 
 jobs:
-  build:
-    name: Build and test
+  build-dontnet:
+    name: Build and test C#
     runs-on: ubuntu-latest      # Sets the build environment a machine with the latest Ubuntu installed
     steps:
     - uses: actions/checkout@v4 # Adds a step to checkout the repository code
@@ -26,6 +26,12 @@ jobs:
     - name: Test
       run: dotnet test --no-build --verbosity normal --configuration Release
 
+  build-typescript:
+    name: Build and test Typescript
+    runs-on: ubuntu-latest      # Sets the build environment a machine with the latest Ubuntu installed
+    steps:
+    - uses: actions/checkout@v4 # Adds a step to checkout the repository code
+
     # Build the Typescript Code
     - name: Install Ddependencies
       working-directory: DotnetTemplate.Web/
@@ -45,3 +51,4 @@ jobs:
     - name: Run Typescript Test
       working-directory: DotnetTemplate.Web/
       run: npm t
+        
