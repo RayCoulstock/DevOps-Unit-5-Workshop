@@ -8,5 +8,33 @@ jobs:
     steps:
     - uses: actions/checkout@v4 # Adds a step to checkout the repository code
     
-    - name: Hello world       # Name of step
-      run: echo 'Hello world' # Command to run
+    -# Set up .NET Core
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: '8.0.x' # Specify the .NET version to use
+
+    -# Restore dependencies
+
+    -# Build the project
+    - name: Build with dotnet
+      run: dotnet build --configuration Release
+
+    -# Run tests
+    - name: Test
+      run: dotnet test --no-build --verbosity normal --configuration Release
+
+    -# Build the Typescript Code
+    - name: Build Typescript
+    working-directory: DotnetTemplate.Web/
+      run: npm run build
+
+    -# Runs the Typescript linter
+    - name: Run Linter
+    working-directory: DotnetTemplate.Web/
+      run: npm run lint
+
+    -# Runs the Typescript Tests
+    - name: Run Typescript Test
+    working-directory: DotnetTemplate.Web/
+      run: npm t
